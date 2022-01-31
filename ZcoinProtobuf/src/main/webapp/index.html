@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+
+<title>sign in - Zcoin Accounts</title>
+
+<link style="width:20px;" rel="icon" type="image/x-icon" href="images/zoho-logo.png">
+
+<link rel="stylesheet" type="text/css" href="css/index.css">
+
+<link rel="stylesheet" type="text/css" href="css/StyleForInputFieldAndLabel.css">
+
+<style>
+/*  background image */
+
+body 
+{
+  background-image: url('images/background1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+</style>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<img class="image_center" src="images/zoho-logo.png" style="wight: 100px; height: 100px">
+
+		<p
+			style="font-family: Times New Roman; font-size: 30px; text-align: center;">Sign in</p>
+
+		<p style="text-align: center; font-family: Times New Roman;">Use your Zcoin Account</p>
+
+		<form>
+
+			<div class="forminputs" style="margin-top: 40px;">
+
+				<input autocomplete="off" type="text" name="email" id="email" class="form__input" placeholder=" "> 
+				
+				<label style="font-family: Times New Roman;" id="emaillabel" for="" class="form__label">Email or phone</label>
+
+			</div>
+
+			<div class="errormessage">
+
+				<p id="errormessage"></p>
+
+			</div>
+
+			<input type="button" class="newuser" value="Create account" onclick="window.location.href='CreateAccount.html'"> 
+				
+			<input type="button" id="next" class="next" value="Next" onclick="callJqueryAjax()">
+
+		</form>
+
+	</div>
+	
+
+	<script>
+
+	
+	
+	function callJqueryAjax()
+	{
+		var email = $('#email').val();
+		if (email == "") 
+		{
+			document.getElementById("email").classList.remove("form__input");
+			document.getElementById("email").classList.add("form__inputerror");
+			document.getElementById("emaillabel").classList.remove("form__label");
+			document.getElementById("emaillabel").classList.add("form__labelerror");
+			document.getElementById('errormessage').innerHTML = "<img src='images/08-512.png' style='height:20px;width:20px'>"+ "Please enter an email";
+		}
+		else
+		{
+			$.ajax({
+			url      : 'emailverification',
+			method   : 'POST',
+			data     : {email : email},
+			success  : function(resultText)
+			{
+				const obj = JSON.parse(resultText);
+				console.log(obj.Status);
+				if(obj.Status=="AccessNotGivenByAgent")
+				{
+					document.getElementById("email").classList.remove("form__input");
+	            	document.getElementById("email").classList.add("form__inputerror");
+	            	document.getElementById("emaillabel").classList.remove("form__label");
+	            	document.getElementById("emaillabel").classList.add("form__labelerror");
+	            	document.getElementById('errormessage').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Agent didnt give access for your account";
+				}
+				else if(obj.Status=="NotaValidEmail")
+				{
+        			document.getElementById("email").classList.remove("form__input");
+        			document.getElementById("email").classList.add("form__inputerror");
+        			document.getElementById("emaillabel").classList.remove("form__label");
+        			document.getElementById("emaillabel").classList.add("form__labelerror");
+        			document.getElementById('errormessage').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a valid email";
+				}
+				else
+				{
+					window.location.href='Password.html';
+					console.log("Success");
+				}
+			},
+			error : function(jqXHR, exception)
+			{
+				console.log('Error occured!!');
+			}
+			});
+		}
+	}
+	
+	
+
+	</script>
+</body>
+
+</html>

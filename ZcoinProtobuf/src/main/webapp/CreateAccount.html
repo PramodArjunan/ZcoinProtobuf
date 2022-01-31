@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Create your account</title>
+	
+	<link style="width:20px;" rel="icon" type="image/x-icon" href="images/zoho-logo.png">
+	
+	<link rel="stylesheet" href="css/CreateAccount.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/StyleForInputFieldAndLabel.css">
+
+<style>
+
+body 
+{
+  background-image: url('images/background1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+</style>
+
+
+</head>
+
+<body>
+
+	<div class="container" >
+	
+	
+
+	<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+
+	<p style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Create your Zcoin Account</p>
+
+	<form name="create" id="create" name="create" method="post">
+
+<div class="error">
+			
+			<p id="emailandhiderror"></p>
+		
+		</div>
+
+
+	<div class="forminputs" >
+ 	
+		<input autocomplete="off" type="text" name="name" id="name" class="form__input" placeholder=" ">
+
+  		<label id="namelabel" style="font-family:Times New Roman;" for="name" class="form__label">Name</label>	
+	</div>
+
+		<div class="error">
+			
+			<p id="errormessageforname"></p>
+		
+		</div>
+
+	<div class="forminputs">
+
+ 		<input autocomplete="off" type="tel" name="phone" id="phone" maxlength="10" class="form__input" placeholder=" ">
+
+  		<label id="phonelabel" style="font-family:Times New Roman;" for="phone" class="form__label">Phone</label>
+	</div>
+	
+	<div class="error">
+
+		<p id="errormessageforphone"></p>
+	
+	</div>
+	
+	<div class="forminputs">
+
+ 		<input autocomplete="off" type="text" name="email" id="email" class="form__input" placeholder=" ">
+
+  		<label id="emaillabel" style="font-family:Times New Roman;" for="email" class="form__label">Email</label>
+
+	</div>
+
+	<div class="error">
+
+		<p id="errormessageforemail"></p>
+	
+	</div>
+
+	<div class="forminputs">
+
+ 		<input autocomplete="off" type="text" id="hid" name="hid" class="form__input" placeholder=" ">
+
+  		<label id="hidlabel" style="font-family:Times New Roman;" for="hid" class="form__label">Hid</label>
+	
+	</div>
+	
+	<div class="error">
+
+		<p id="errormessageforhid"></p>
+	
+	</div>
+
+	<div class="forminputs">
+
+ 		<input autocomplete="off" type="text" name="rc" id="rc" class="form__input" placeholder=" ">
+
+  		<label id="rclabel" style="font-family:Times New Roman;" for="rc" class="form__label">RC</label>
+
+	</div>
+
+	<div class="error">
+
+		<p id="errormessageforrc"></p>
+
+	</div>
+	
+	<div class="forminputs">
+
+ 		<input autocomplete="off" type="password" name="password" id="password" class="form__input" placeholder=" ">
+
+  		<label id="passwordlabel" style="font-family:Times New Roman;" for="password" class="form__label">Password</label>
+	</div>
+
+	<div class="error">
+
+		<p id="errormessageforpassword"></p>
+
+	</div>
+	
+	<div class="forminputs">
+
+ 		<input autocomplete="off" type="password" name="repeat" id="repeat" class="form__input" placeholder=" ">
+
+  		<label id="repeatlabel" style="font-family:Times New Roman;" for="repeat" class="form__label">Repeat Password</label>
+
+	</div>
+
+	<div class="error">
+
+		<p id="errormessageforrepeatpassword"></p>
+	</div>
+
+
+	<input autocomplete="off" type="checkbox" id="showPassword" >
+
+	<label style="font-family:Times New Roman;"for="showPassword">Show password</label>
+<div>
+<input type="button" id="accountsignin" class="newuser" value="Sign in instead" onclick="window.location.href='index.html'">
+
+<input type="button" id="accountnext" class="next" value="Next" onclick="errorMessage()">
+</div>
+</form>
+	
+
+	
+
+</div>
+
+<script>
+
+
+	document.getElementById('showPassword').onclick = function() 
+	{
+	    if ( this.checked ) 
+	    {
+		document.getElementById('password').type = "text";
+		document.getElementById('repeat').type = "text";
+	    }
+	    else 
+	    {
+		document.getElementById('password').type = "password";
+	   	document.getElementById('repeat').type = "password"; 
+	   }
+	};
+	function errorMessage() 
+	{
+
+		var name = document.forms["create"]["name"].value;
+		var phone = document.forms["create"]["phone"].value;
+		var email = document.forms["create"]["email"].value;
+		var hid = document.forms["create"]["hid"].value;
+		var rc = document.forms["create"]["rc"].value;
+		var password = document.forms["create"]["password"].value;
+		var repeat = document.forms["create"]["repeat"].value;
+		if(name == "")
+		{
+		 	document.getElementById("name").classList.remove("form__input");
+        		document.getElementById("name").classList.add("form__inputerror");
+			document.getElementById("namelabel").classList.remove("form__label");
+        		document.getElementById("namelabel").classList.add("form__labelerror");
+			document.getElementById('errormessageforname').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a name";	
+		}
+		else
+		{
+			document.getElementById("name").classList.remove("form__inputerror");
+        		document.getElementById("name").classList.add("form__input");
+			document.getElementById("namelabel").classList.remove("form__labelerror");
+        		document.getElementById("namelabel").classList.add("form__label");
+			document.getElementById('errormessageforname').innerHTML="";
+		}
+		if(phone == "")
+		{
+		 	document.getElementById("phone").classList.remove("form__input");
+        		document.getElementById("phone").classList.add("form__inputerror");
+			document.getElementById("phonelabel").classList.remove("form__label");
+        		document.getElementById("phonelabel").classList.add("form__labelerror");
+			document.getElementById('errormessageforphone').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a phone number";	
+		}
+		if(phone != "")
+		{
+			if(phone.length<10)
+			{
+				document.getElementById("phone").classList.remove("form__input");
+				document.getElementById("phone").classList.add("form__inputerror");
+				document.getElementById("phonelabel").classList.remove("form__label");
+				document.getElementById("phonelabel").classList.add("form__labelerror");
+				if(isNaN(phone))
+				{
+					document.getElementById('errormessageforphone').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the number";	
+				}
+				else
+				{
+					document.getElementById('errormessageforphone').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please check the number";
+				}			
+			}
+			else
+			{
+				document.getElementById("phone").classList.remove("form__inputerror");
+				document.getElementById("phone").classList.add("form__input");
+				document.getElementById("phonelabel").classList.remove("form__labelerror");
+				document.getElementById("phonelabel").classList.add("form__label");
+				document.getElementById('errormessageforphone').innerHTML="";
+			}
+		}
+		if(email == "")
+		{
+		 	document.getElementById("email").classList.remove("form__input");
+        		document.getElementById("email").classList.add("form__inputerror");
+			document.getElementById("emaillabel").classList.remove("form__label");
+        		document.getElementById("emaillabel").classList.add("form__labelerror");
+			document.getElementById('errormessageforemail').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter an email";	
+		}
+		else
+		{
+			document.getElementById("email").classList.remove("form__inputerror");
+        		document.getElementById("email").classList.add("form__input");
+			document.getElementById("emaillabel").classList.remove("form__labelerror");
+        		document.getElementById("emaillabel").classList.add("form__label");
+			document.getElementById('errormessageforemail').innerHTML="";
+		}
+		if(hid == "")
+		{
+		 	document.getElementById("hid").classList.remove("form__input");
+        		document.getElementById("hid").classList.add("form__inputerror");
+			document.getElementById("hidlabel").classList.remove("form__label");
+        		document.getElementById("hidlabel").classList.add("form__labelerror");
+			document.getElementById('errormessageforhid').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter Hid";	
+		}
+		else
+		{
+			document.getElementById("hid").classList.remove("form__inputerror");
+        		document.getElementById("hid").classList.add("form__input");
+			document.getElementById("hidlabel").classList.remove("form__labelerror");
+        		document.getElementById("hidlabel").classList.add("form__label");
+			document.getElementById('errormessageforhid').innerHTML="";
+		}
+		if(rc == "")
+		{
+		 	document.getElementById("rc").classList.remove("form__input");
+        		document.getElementById("rc").classList.add("form__inputerror");
+			document.getElementById("rclabel").classList.remove("form__label");
+        		document.getElementById("rclabel").classList.add("form__labelerror");
+			document.getElementById('errormessageforrc').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter RC";	
+		}
+		else
+		{
+			document.getElementById("rc").classList.remove("form__inputerror");
+        		document.getElementById("rc").classList.add("form__input");
+			document.getElementById("rclabel").classList.remove("form__labelerror");
+        		document.getElementById("rclabel").classList.add("form__label");
+			document.getElementById('errormessageforrc').innerHTML="";
+		}
+		if(password == "")
+		{
+		 	document.getElementById("password").classList.remove("form__input");
+        		document.getElementById("password").classList.add("form__inputerror");
+			document.getElementById("passwordlabel").classList.remove("form__label");
+        		document.getElementById("passwordlabel").classList.add("form__labelerror");
+			document.getElementById('errormessageforpassword').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a password";	
+		}
+		if(password != "")
+		{
+			document.getElementById("password").classList.remove("form__inputerror");
+        		document.getElementById("password").classList.add("form__input");
+			document.getElementById("passwordlabel").classList.remove("form__labelerror");
+        		document.getElementById("passwordlabel").classList.add("form__label");
+			document.getElementById('errormessageforpassword').innerHTML="";
+		}
+		if(repeat == "")
+		{
+		 	document.getElementById("repeat").classList.remove("form__input");
+        		document.getElementById("repeat").classList.add("form__inputerror");
+			document.getElementById("repeatlabel").classList.remove("form__label");
+        		document.getElementById("repeatlabel").classList.add("form__labelerror");
+			document.getElementById('errormessageforrepeatpassword').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the password again";	
+		}
+		if(repeat != "")
+		{
+			document.getElementById("repeat").classList.remove("form__inputerror");
+        		document.getElementById("repeat").classList.add("form__input");
+			document.getElementById("repeatlabel").classList.remove("form__labelerror");
+        		document.getElementById("repeatlabel").classList.add("form__label");
+
+			if(password != repeat)
+			{
+				document.getElementById('errormessageforrepeatpassword').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the same password";		
+			}
+			else
+			{	
+				document.getElementById('errormessageforrepeatpassword').innerHTML="";		
+
+				$.ajax({
+					url      : 'CreateNewAccount',
+					method   : 'POST',
+					data     : 		
+					{
+						name:name,
+						phone:phone,
+						email:email,
+						hid:hid,
+						rc:rc,
+						password:password
+					},
+					success  : function(resultText)
+					{
+						console.log(resultText);
+						if(resultText=="EmailAlreadyPresent")
+						{
+							document.getElementById('emailandhiderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Entered Email is already present";
+						}
+						else if(resultText=="HidAlreadyPresent")
+						{
+							document.getElementById('emailandhiderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Entered Hid is already present";
+						}
+						else
+						{
+							window.location.href='index.html';
+							console.log("UserSuccess");
+						}
+					},
+					error : function(jqXHR, exception)
+					{
+						console.log('Error occured!!');
+					}
+					});
+			}
+		}
+						
+	}
+
+</script>
+
+</body>
+
+</html>

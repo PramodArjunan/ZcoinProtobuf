@@ -1,0 +1,478 @@
+@charset "UTF-8";
+.errorcontainer
+{
+  width:600px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  margin:auto;
+  padding: 20px;
+  border-radius:10px; 
+  text-align:center;
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+} 
+/*zoho image*/
+
+.image_center 
+{
+  position:absolute;
+  margin-top:-40px;
+  margin-left:0px;
+}
+
+/*input box*/
+
+.form__input:focus + .form__label /*Input focus move up label*/
+{
+  color: blue;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 10;
+  position: relative;
+  top:-65px;
+  left:12px;
+}
+
+.forminputerror:focus + .formlabelerror /*Input focus move up label*/
+{
+  color: red;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 10;
+  position: relative;
+  top:-65px;
+  left:12px;
+}
+
+.form__input
+{
+  position: relative;
+  border: 0.5px solid #80868B;
+  display: block;
+  border-radius:5px;
+  width:90%; 
+  height:50px;
+  background: none;
+  padding-left:10px;
+  z-index: 1;
+}
+
+.forminputerror
+{
+ position: relative;
+ border: 0.5px solid red;
+ display: block;
+ border-radius:5px;
+ width:90%; 
+ height:50px;
+ background: none;
+ padding-left:10px;
+ z-index: 1;
+}
+
+.form__label /*label inside the input box*/
+{
+  position: relative;
+  top:-40px;
+  left:12px;
+  background-color: white;
+  color: #80868B;
+  font-size: 15px;
+  transition: .3s;
+  color:black;
+}
+
+.formlabelerror /*label inside the input box*/
+{
+  position: relative;
+  top:-40px;
+  left:12px;
+  background-color: white;
+  color: #80868B;
+  font-size: 15px;
+  transition: .3s;
+  color:red;
+}
+
+.form__input:focus
+{
+  border:1.7px solid blue;
+}
+
+.forminputerror:focus
+{
+ border:1.7px solid red;
+}
+
+.form__input:not(:placeholder-shown).form__input:not(:focus)+ .form__label /*Input focus sticky top label*/
+{
+  position: relative;
+  top:-65px;
+  left:12px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index:2;
+}
+
+.forminputerror:not(:placeholder-shown).forminputerror:not(:focus)+ .formlabelerror /*Input focus sticky top label*/
+{
+  position: relative;
+  top:-65px;
+  left:12px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index:2;
+}
+
+.error
+{
+  color:red;
+}
+
+.forminputs
+{
+  height:54px;
+}
+
+.next
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left:265px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top:40px;
+}
+
+
+
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button 
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] 
+{
+  -moz-appearance: textfield;
+}
+
+/* side panel design */
+
+
+
+
+li a 
+{
+  box-shadow: 6px 0 10px 1px rgba(31, 73, 125);
+  font-family: 'Courier New', monospace;
+  color:SlateBlue;
+  text-align:center;
+  height:3vh;
+  margin:6px;
+  display: block;
+  color: #000;
+  padding: 20px 0px;
+  text-decoration: none;
+  border-radius:10px;
+}
+
+li a:hover
+{
+  background-color: DarkSlateGrey;
+  color: white;
+  border-radius:10px;
+}
+
+
+/*active menu bar*/
+
+.active
+{
+  background-color:black;
+  color: white;
+}
+
+
+
+
+/* Container design*/
+
+.changepassword
+{
+  width:450px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+  margin:auto;
+  margin-top:200px;
+  padding: 40px;
+  border-radius:10px;
+} 
+
+/*agent changing password to user*/
+
+.agentchangepassword
+{
+  width:450px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+  margin:auto;
+  margin-top:200px;
+  padding: 40px;
+  border-radius:10px;
+} 
+
+/*error container for displaying success and failure message*/
+
+.errorcontainer
+{
+  width:600px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  margin:auto;
+  padding: 20px;
+  border-radius:10px; 
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+} 
+
+.profile
+{
+  width:600px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  margin:auto;
+  margin-top:100px;
+  padding: 40px;
+  border-radius:10px; 
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+} 
+
+.withdraw,.deposit,.sendtozid,.agenttoseezid
+{
+  width:400px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  margin:auto;
+  margin-top:200px;
+  padding: 40px;
+  border-radius:10px; 
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+} 
+
+
+
+.wholetrans,.withdrawtrans,.deposittrans,.sendtozidtrans,.allusers,.agentseeusertransaction,.wholetransofparticularuser
+{
+  width:600px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  margin:auto;
+  margin-top:160px;
+  padding: 40px;
+  border-radius:10px;
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+} 
+
+.giveaccess
+{
+  width:900px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  margin:auto;
+  margin-top:160px;
+  padding: 40px;
+  border-radius:10px;
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+} 
+
+/*design for deposit container*/
+
+.depositbutton
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left:270px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top:40px;
+}
+
+/*design for withdraw container*/
+
+.withdrawbutton
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left:265px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top:40px;
+}
+
+/*agent to see transaction of particular zid*/
+
+.seezidbutton
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left:285px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top:40px;
+}
+
+
+
+/*design for send to zid container*/
+
+.send
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left:283px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top:40px;
+}
+
+.seezidback
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top:40px;
+}
+
+/*design for transaction container*/
+table 
+{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th 
+{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) 
+{
+  background-color: #D6EEEE;
+}
+
+tr:nth-child(odd) 
+{
+  background-color: #dddddd;
+}
+
+tr:first-child 
+{
+  position: sticky;
+  top: 0;
+}
+
+.scrollingTable 
+{
+  overflow-y: auto;
+  height:300px;
+   display:block;
+}
+
+
+/*reset passsword design*/
+
+.confirm
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left:320px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top:40px
+}
+.ul2 
+{
+	box-shadow: 6px 0 10px 1px rgba(31, 73, 125);
+  list-style-type: none;
+  margin: auto;
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:20px;
+  padding-right:20px;
+  width: 10%;
+  position: fixed;
+height:35%;
+  overflow: auto;
+  background-color: gray;
+}
+
+.ul1 
+{
+  box-shadow: 6px 0 10px 1px rgba(31, 73, 125);
+  list-style-type: none;
+  margin: auto;
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:20px;
+  padding-right:20px;
+  width: 13%;
+  position: fixed;
+  height: 93%;
+  overflow: auto;
+  background-color: gray;
+}

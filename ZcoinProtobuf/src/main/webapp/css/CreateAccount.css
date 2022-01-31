@@ -1,0 +1,91 @@
+
+.container
+{
+  width:450px;
+  box-shadow: 12px 0 15px 4px rgba(31, 73, 125), -12px 0 8px -4px rgba(31, 73, 125);
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  margin:auto;
+  padding: 40px;
+  border-radius:10px;
+} 
+
+.image_center 
+{
+  position:absolute;
+  margin-top:-40px;
+  margin-left:0px;
+}
+	
+.newuser
+{
+  border: none;
+  color: blue;
+  padding: 10px;
+  text-align: center;
+  background-color:white;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-top:40px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.next
+{
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  background-color:blue;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left:245px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.newuser:hover
+{
+  background-color:#9B9B9B;
+}
+.createimage
+{
+ position:absolute;
+ top:250px;
+ left:500px;
+}
+.leftcontainer{
+
+float:left;
+width:450px;
+
+}
+.rightcontainer{
+
+float:left;
+margin-top:200px;
+
+}
+
+.forminputs
+{
+height:54px;
+}
+.error
+{
+color:red;
+
+}
+/*  background image */
+
+body 
+{
+  background-image: url("/src/main/webapp/images/background1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}

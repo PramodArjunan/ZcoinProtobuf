@@ -1,0 +1,26 @@
+syntax="proto2";
+package TemporaryStorageInJvm;
+
+option java_outer_classname = "UserInformations";
+
+message UserDetails
+{
+	optional int32 Rc=1;
+	optional int32 Zid=2;
+	optional int32 Depost=3;
+	optional int32 Withdraw=4;
+	optional int32 SendZid=5;
+	optional int32 ZidAmount=6;
+	optional int32 Type=7;
+	optional int32 AgentUserZid=8;
+	optional bool Access=9;
+	optional int64 Phone=10;
+	optional string Name=11;
+	optional string Email=12;
+	optional string Hid=13;
+	optional string Password=14;
+	optional string AgentUserNewPassword=15;
+	optional string ResetPassword=16;
+	optional string Message=17;
+	optional string AccessGivenTo=18;
+}

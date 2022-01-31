@@ -1,0 +1,149 @@
+@charset "UTF-8";
+
+.form__inputerror
+{
+ position: relative;
+ border: 0.5px solid red;
+ display: block;
+ border-radius:5px;
+ width:97%; 
+ height:50px;
+ background: none;
+ padding-left:10px;
+ z-index: 1;
+}
+.form__labelerror /*label inside the input box*/
+{
+  position: relative;
+  top:-40px;
+  left:12px;
+  background-color: white;
+  color: #80868B;
+  font-size: 15px;
+  transition: .3s;
+  color:red;
+}
+.form__inputerror:not(:placeholder-shown).form__inputerror:not(:focus)+ .form__labelerror /*Input focus sticky top label*/
+{
+  position: relative;
+  top:-65px;
+  left:12px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index:2;
+}
+.form__inputerror:focus + .form__labelerror /*Input focus move up label*/
+{
+  color: red;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 10;
+  position: relative;
+  top:-65px;
+  left:12px;
+}
+.form__inputerror:focus
+{
+ border:1.7px solid red;
+}
+.form__input:focus + .form__label /*Input focus move up label*/
+{
+  color: blue;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 10;
+  position: relative;
+  top:-65px;
+  left:12px;
+}
+
+.form__input
+{
+ position: relative;
+ border: 0.5px solid #80868B;
+ display: block;
+ border-radius:5px;
+ width:97%; 
+ height:50px;
+ background: none;
+ padding-left:10px;
+ z-index: 1;
+}
+
+.form__label /*label inside the input box*/
+{
+  position: relative;
+  top:-40px;
+  left:12px;
+  background-color: white;
+  color: #80868B;
+  font-size: 15px;
+  transition: .3s;
+  color:black;
+}
+
+.form__input:focus
+{
+ border:1.7px solid blue;
+}
+
+.form__input:not(:placeholder-shown).form__input:not(:focus)+ .form__label /*Input focus sticky top label*/
+{
+  position: relative;
+  top:-65px;
+  left:12px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index:2;
+}
+.errormessage
+{
+color:red;
+
+}
+.forminputs
+{
+height:54px;
+}
+
+body 
+{
+  background-image: url('images/background1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+ul 
+{
+  list-style-type: none;
+  margin: 0;
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:20px;
+  padding-right:20px;
+  width: 13%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  background-color: gray;
+}
+
+li a 
+{
+ color:SlateBlue;
+ text-align:center;
+ height:3vh;
+  display: block;
+  color: #000;
+  padding: 20px 0px;
+  text-decoration: none;
+
+}
+
+li a:hover:not(.active) 
+{
+  background-color: #555;
+  color: white;
+}

@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Zcoin-Profile</title>
+	
+	<link style="width:20px;" rel="icon" type="image/x-icon" href="images/zoho-logo.png">
+	
+	<link rel="stylesheet" type="text/css" href="css/Profile.css">
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+/*  background image */
+
+body 
+{
+  background-image: url('images/background1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.topheader
+{
+height:2%;
+float:right;
+}
+</style>
+
+<!-- ProfilePage -->
+
+<script>
+
+		$.ajax({
+		url      : 'ProfilePage',
+		success  : function(resultText)
+		{
+			
+			
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			document.getElementById("username").innerHTML =obj[0].Name;
+			document.getElementById("email").innerHTML =obj[0].Email;
+			document.getElementById("phone").innerHTML =obj[0].Phone;
+			document.getElementById("hid").innerHTML =obj[0].Hid;
+			document.getElementById("rc").innerHTML =obj[0].Rc;
+			document.getElementById("zid").innerHTML =obj[0].Zid;
+			if(obj[0].type==1)
+			{
+				console.log("admin");
+			}
+			else
+			{
+				console.log("user");
+				$("#allagentmenu").hide();
+			}
+			
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+		
+</script>
+
+<!-- Transaction message -->
+
+<script>
+
+	$.ajax({
+	url      : 'TransactionMessage',
+	success  : function(resultText)
+	{
+		console.log(resultText);
+		const obj = JSON.parse(resultText);
+		var count = Object.keys(obj).length;
+		console.log(count);
+		if(obj.Status=="DepositSuccess" || obj.Status=="WithdrawSuccess" || obj.Status=="SendSuccess")
+		{
+			document.getElementById('transactionsuccess').innerHTML="Transaction Successfull";	
+			$(document).ready(function()
+			{
+				$("#errorcontainer").fadeIn();
+			});
+			setTimeout(function() {
+			$('#errorcontainer').fadeOut('fast');
+		}, 2000);
+		}
+		else if(obj.Status=="WithdrawFailedBalanceLow" || obj.Status=="SendFailedLowBalance")
+		{
+			document.getElementById('transactionerror').innerHTML="Transaction Failed due to low balance";	
+			$(document).ready(function()
+			{
+				$("#errorcontainer").fadeIn();
+			});
+			setTimeout(function() {
+			$('#errorcontainer').fadeOut('fast');
+		}, 2000);
+		}
+		else if(obj.Status=="SendZidNotPresent")
+		{
+			document.getElementById('transactionerror').innerHTML="Transaction Failed.Entered Zid not present";	
+			$(document).ready(function()
+			{
+				$("#errorcontainer").fadeIn();
+			});
+			setTimeout(function() {
+			$('#errorcontainer').fadeOut('fast');
+		}, 2000);
+		}
+		else if(obj.Status=="WrongPassword")
+		{
+			document.getElementById('transactionerror').innerHTML="Action Failed.Wrong Password";	
+			$(document).ready(function()
+			{
+				$("#errorcontainer").fadeIn();
+			});
+			setTimeout(function() {
+			$('#errorcontainer').fadeOut('fast');
+		}, 2000);
+		}
+		else if(obj.Status=="userpasswordrestsuccess")
+		{
+			agentpasswordresetfunction();
+			document.getElementById('transactionsuccess').innerHTML="Reseting Password is successfull";	
+			$(document).ready(function()
+			{
+				$("#errorcontainer").fadeIn();
+			});
+			setTimeout(function() {
+			$('#errorcontainer').fadeOut('fast');
+		}, 2000);	
+		}
+		else if(obj.Status=="EnteredZidNotPresentToResetPassword")
+		{
+			agentpasswordresetfunction();
+			document.getElementById('transactionerror').innerHTML="Reseting Password is Failed.Entered Zid not present.";	
+			$(document).ready(function()
+			{
+				$("#errorcontainer").fadeIn();
+			});
+			setTimeout(function() {
+			$('#errorcontainer').fadeOut('fast');
+		}, 2000);	
+		}
+		else if(obj.Status=="AccessGivenSuccessfully")
+		{
+			giveaccess();
+			giveaccessfunction();
+			document.getElementById('transactionsuccess').innerHTML="Access for the user "+obj.AccessGivenTo+" is given successfully ";	
+			$(document).ready(function()
+			{
+				$("#errorcontainer").fadeIn();
+			});
+			setTimeout(function() {
+			$('#errorcontainer').fadeOut('fast');
+		}, 2000);	
+			
+		}
+		
+		
+	},
+	error : function(jqXHR, exception)
+	{
+		console.log('Error occured!!');
+	}
+	});
+
+</script>
+
+<!-- whole Transaction Page -->
+
+
+<script>
+
+function wholetrans()
+{
+		$.ajax({
+		url      : 'WholeTransactions',
+		success  : function(resultText)
+		{
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			var rowCount = $("#wholetable tr").length;
+			for(let i=1;i<rowCount;i++)
+			{
+				document.getElementById("wholetable").deleteRow(1);
+			}
+			for(let i=0;i<count;i++)
+			{
+				var table = document.getElementById('wholetable');
+            	var row = table.insertRow(1);
+            	var transaction = row.insertCell(0);
+            	var date = row.insertCell(1);
+            	var amount = row.insertCell(2);
+            	var balance=row.insertCell(3);
+            	transaction.innerHTML=obj[i].transaction;
+            	date.innerHTML = obj[i].dateandtime;
+            	amount.innerHTML =obj[i].transactionamount;
+            	balance.innerHTML=obj[i].balance;
+			}
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+}
+</script>
+
+<!-- Deposit Transaction Page -->
+
+<script>
+
+function deposittrans()
+{
+		$.ajax({
+		url      : 'WholeTransactions',
+		success  : function(resultText)
+		{
+			
+			
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			var rowCount = $("#deposittable tr").length;
+			for(let i=1;i<rowCount;i++)
+			{
+				document.getElementById("deposittable").deleteRow(1);
+			}
+			for(let i=0;i<count;i++)
+			{
+				if(obj[i].transaction=="Deposit")
+				{
+					var table = document.getElementById('deposittable');
+	            	var row = table.insertRow(1);
+	            	var dateandtime = row.insertCell(0);
+	            	var transactionamount = row.insertCell(1);
+	            	var balance = row.insertCell(2);
+	            	dateandtime.innerHTML=obj[i].dateandtime;
+	            	transactionamount.innerHTML = obj[i].transactionamount;
+	            	balance.innerHTML =obj[i].balance;
+				}
+			}
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+}
+</script>
+
+<!-- send Transaction Page -->
+
+<script>
+function sendtrans()
+{
+		$.ajax({
+		url      : 'WholeTransactions',
+		success  : function(resultText)
+		{
+			
+			
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			var rowCount = $("#myTable tr").length;
+			for(let i=1;i<rowCount;i++)
+			{
+				document.getElementById("myTable").deleteRow(1);
+			}
+			for(let i=0;i<count;i++)
+			{
+				if(obj[i].transaction=="SendToZid")
+				{
+					
+					var table = document.getElementById('myTable');
+        			var row = table.insertRow(1);
+        			var sendzid = row.insertCell(0);
+       				var date = row.insertCell(1);
+        			var amount = row.insertCell(2);
+        			var balance=row.insertCell(3);
+        			sendzid.innerHTML=obj[i].sendzid;
+        			date.innerHTML =obj[i].dateandtime;
+        			amount.innerHTML =obj[i].transactionamount;
+        			balance.innerHTML=obj[i].balance;
+				}
+			}
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+}	
+</script>
+
+<!-- withdraw Transaction Page -->
+
+<script>
+function withdrawtrans()
+{
+
+		$.ajax({
+		url      : 'WholeTransactions',
+		success  : function(resultText)
+		{
+			
+			
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			var rowCount = $("#withdrawtable tr").length;
+			for(let i=1;i<rowCount;i++)
+			{
+				document.getElementById("withdrawtable").deleteRow(1);
+			}
+			for(let i=0;i<count;i++)
+			{
+				if(obj[i].transaction=="Withdraw")
+				{
+					var table = document.getElementById('withdrawtable');
+	            	var row = table.insertRow(1);
+	            	var dateandtime = row.insertCell(0);
+	            	var transactionamount = row.insertCell(1);
+	            	var balance = row.insertCell(2);
+	            	dateandtime.innerHTML=obj[i].dateandtime;
+	            	transactionamount.innerHTML = obj[i].transactionamount;
+	            	balance.innerHTML =obj[i].balance;
+				}
+			}
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+}
+</script>
+
+
+<!-- access for the users Page -->
+
+<script>
+
+function giveaccess()
+{
+		$.ajax({
+		url      : 'AllUsers',
+		success  : function(resultText)
+		{
+			console.log(resultText);
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			var rowCount = $("#accessTable tr").length;
+			for(let i=1;i<rowCount;i++)
+			{
+				document.getElementById("accessTable").deleteRow(1);
+			}
+			for(let i=0;i<count;i++)
+			{
+				if(obj[i].access!=1 && obj[i].type!=1)
+				{
+					 var table = document.getElementById('accessTable');
+		             var row = table.insertRow(1);
+		             var username = row.insertCell(0);
+		             var phone=row.insertCell(1);
+		             var email = row.insertCell(2);
+		             var zid=row.insertCell(3);
+		             var hid=row.insertCell(4);
+		             var rc=row.insertCell(5);
+		             var access=row.insertCell(6);
+		             username.innerHTML =obj[i].name;
+		             email.innerHTML =obj[i].email;
+		             phone.innerHTML=obj[i].phone;
+		             zid.innerHTML=obj[i].zid;		
+		             hid.innerHTML=obj[i].hid;
+		             rc.innerHTML=obj[i].rc;
+		             access.innerHTML="<a href='AgentGivingAccessToUser?id="+obj[i].email+"'>Give access</a>";
+		             
+		         
+		             
+				}
+			}
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+}
+</script>
+
+
+<!-- all users Page -->
+
+<script>
+
+function alluser()
+{
+		$.ajax({
+		url      : 'AllUsers',
+		success  : function(resultText)
+		{
+			console.log(resultText);
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			var rowCount = $("#allusertable tr").length;
+			for(let i=1;i<rowCount;i++)
+			{
+				document.getElementById("allusertable").deleteRow(1);
+			}
+			for(let i=0;i<count;i++)
+			{
+				if(obj[i].type!=1 && obj[i].access==1)
+				{
+					 var table = document.getElementById('allusertable');
+		             var row = table.insertRow(1);
+		             var username = row.insertCell(0);
+		             var email = row.insertCell(1);
+		             var phone=row.insertCell(2);
+		             var zid=row.insertCell(3);
+		             var hid=row.insertCell(4);
+		             var rc=row.insertCell(5);
+		             username.innerHTML =obj[i].name;
+		             email.innerHTML =obj[i].email;
+		             phone.innerHTML=obj[i].phone;
+		             zid.innerHTML=obj[i].zid;		
+		             hid.innerHTML=obj[i].hid;
+		             rc.innerHTML=obj[i].rc;
+				}
+			}
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+}
+</script>
+
+
+
+<!-- withdraw Amount Page -->
+<script>
+
+function withdrawamount()
+{
+	
+	var withdraw = $('#withdraw').val();
+	
+	if(withdraw<=0)
+	{
+		document.getElementById("withdraw").classList.remove("form__input");
+        	document.getElementById("withdraw").classList.add("forminputerror");
+		document.getElementById("withdrawlabel").classList.remove("form__label");
+        	document.getElementById("withdrawlabel").classList.add("formlabelerror");
+		document.getElementById('withdrawerror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the valid amount";
+	}
+	else
+		{
+	$.ajax({
+		url      : 'WithdrawTransaction',
+		method   : 'POST',
+		data     : {withdraw : withdraw},
+		success  : function(resultText)
+		{
+			
+			window.location.href='ConfirmPassword.html';
+			
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+		}
+}
+
+</script>
+
+<!-- Deposit Amount Page -->
+<script>
+
+function depositamount()
+{
+	
+	var deposit = $('#deposit').val();
+	
+	if(deposit<=0)
+	{
+		document.getElementById("deposit").classList.remove("form__input");
+        	document.getElementById("deposit").classList.add("forminputerror");
+		document.getElementById("depositlabel").classList.remove("form__label");
+        	document.getElementById("depositlabel").classList.add("formlabelerror");
+		document.getElementById('depositerror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the valid amount";
+	}
+	else
+		{
+	$.ajax({
+		url      : 'Deposittransaction',
+		method   : 'POST',
+		data     : {deposit : deposit},
+		success  : function(resultText)
+		{
+			
+			window.location.replace('ConfirmPassword.html');
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+		}
+}
+
+</script>
+
+
+<!-- Send To Zid  Amount Page -->
+
+<script>
+
+function sendtozidamount()
+{
+	
+	var varzid = $('#zidinput').val();
+	var varsend = $('#sendamount').val();
+	
+	if(varzid<=0)
+	{
+		document.getElementById("zidinput").classList.remove("form__input");
+        	document.getElementById("zidinput").classList.add("forminputerror");
+		document.getElementById("zidlabel").classList.remove("form__label");
+        	document.getElementById("zidlabel").classList.add("formlabelerror");
+		document.getElementById('sendtoziderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the valid number";
+	}
+	else
+	{
+		document.getElementById("zidinput").classList.remove("forminputerror");
+		document.getElementById("zidinput").classList.add("form__input");
+		document.getElementById("zidlabel").classList.remove("formlabelerror");
+		document.getElementById("zidlabel").classList.add("form__label");
+		document.getElementById('sendtoziderror').innerHTML="";
+	}
+	if(varsend<=0)
+	{
+		document.getElementById("sendamount").classList.remove("form__input");
+        	document.getElementById("sendamount").classList.add("forminputerror");
+		document.getElementById("sendamountlabel").classList.remove("form__label");
+        	document.getElementById("sendamountlabel").classList.add("formlabelerror");
+		document.getElementById('sendtozidamounterror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the valid number";
+	}
+	if(varzid>0 && varsend>0)
+	{
+	$.ajax({
+		url      : 'SendToZidTransaction',
+		method   : 'POST',
+		data     : {
+					zidinput : varzid,
+					sendamount:varsend
+					},
+		success  : function(resultText)
+		{
+			
+			window.location.href='ConfirmPassword.html';
+			
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+	}
+}
+
+</script>
+
+
+<!-- Reset password Page -->
+
+<script>
+
+function resetpasswords()
+{
+	var currentpassword = $('#currentpassword').val();
+	var newpassword = $('#newpassword').val();
+	var repeatpassword = $('#repeatpassword').val();
+
+	if(currentpassword == "")
+	{
+	 	document.getElementById("currentpassword").classList.remove("form__input");
+    		document.getElementById("currentpassword").classList.add("forminputerror");
+		document.getElementById("currentpasswordlabel").classList.remove("form__label");
+    		document.getElementById("currentpasswordlabel").classList.add("formlabelerror");
+		document.getElementById('currentpassworderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter current password";	
+	}
+	else
+		{
+		document.getElementById("currentpassword").classList.remove("forminputerror");
+		document.getElementById("currentpassword").classList.add("form__input");
+	document.getElementById("currentpasswordlabel").classList.remove("formlabelerror");
+		document.getElementById("currentpasswordlabel").classList.add("form__label");
+	document.getElementById('currentpassworderror').innerHTML="";
+		}
+
+	if(newpassword == "")
+	{
+	 	document.getElementById("newpassword").classList.remove("form__input");
+    		document.getElementById("newpassword").classList.add("forminputerror");
+		document.getElementById("newpasswordlabel").classList.remove("form__label");
+    		document.getElementById("newpasswordlabel").classList.add("formlabelerror");
+		document.getElementById('newpassworderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a password";	
+	}
+	else
+	{
+		document.getElementById("newpassword").classList.remove("forminputerror");
+    		document.getElementById("newpassword").classList.add("form__input");
+		document.getElementById("newpasswordlabel").classList.remove("formlabelerror");
+    		document.getElementById("newpasswordlabel").classList.add("form__label");
+		document.getElementById('newpassworderror').innerHTML="";
+	}
+	if(repeatpassword == "")
+	{
+	 	document.getElementById("repeatpassword").classList.remove("form__input");
+    		document.getElementById("repeatpassword").classList.add("forminputerror");
+		document.getElementById("repeatpasswordlabel").classList.remove("form__label");
+    		document.getElementById("repeatpasswordlabel").classList.add("formlabelerror");
+		document.getElementById('repeatnewpassworderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a password";	
+	}
+	if(repeatpassword != "")
+	{
+		document.getElementById("repeatpassword").classList.remove("forminputerror");
+    		document.getElementById("repeatpassword").classList.add("form__input");
+		document.getElementById("repeatpasswordlabel").classList.remove("formlabelerror");
+    		document.getElementById("repeatpasswordlabel").classList.add("form__label");
+
+		if(newpassword != repeatpassword)
+		{
+			document.getElementById('repeatnewpassworderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the same password";		
+		}
+		else
+		{	
+			
+			$.ajax({
+				url      : 'ResetPassword',
+				method   : 'POST',
+				data     : {
+								currentpassword : currentpassword,
+								newpassword:newpassword,
+								repeatpassword:repeatpassword
+							},
+				success  : function(resultText)
+				{
+					
+					const obj = JSON.parse(resultText);
+					if(obj.Status=="Success")
+					{
+						
+						profilefunction();
+						
+						document.getElementById('transactionerror').innerHTML="";
+						document.getElementById('transactionsuccess').innerHTML="";
+						document.getElementById('transactionsuccess').innerHTML="Password change successfull";
+						
+         				$(document).ready(function()
+         				{
+         					$("#errorcontainer").fadeIn();
+         				});
+         				setTimeout(function() 
+         				{
+         				 	$('#errorcontainer').fadeOut('fast');
+         				},2000);	
+					}
+					else
+					{
+						profilefunction();
+						
+						document.getElementById('transactionsuccess').innerHTML="";
+						document.getElementById('transactionerror').innerHTML="Password change Failed.Wrong current Password";
+         				$(document).ready(function()
+         				{
+         					$("#errorcontainer").fadeIn();
+         				});
+         				setTimeout(function() 
+         				{
+         				 	$('#errorcontainer').fadeOut('fast');
+         				},2000);
+					}
+					
+				},
+				error : function(jqXHR, exception)
+				{
+					console.log('Error occured!!');
+				}
+				});
+		}
+	}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<!-- Menu bar in left side --> 
+	
+	<ul class="ul1">
+	  <li><a id="profilemenu" class="profilemenu">Profile</a></li>
+	  <li><a id="withdrawmenu" class="withdrawmenu">Withdraw</a></li>
+	  <li><a id="depositmenu" class="depositmenu">Deposit</a></li>
+	  <li><a id="sendtozidmenu" class="sendtozidmenu">Send to Zid</a></li>
+	  <li><a id="wholetransmenu" class="wholetransmenu" onclick="wholetrans()">Whole transactions</a></li>
+	  <li><a id="withdrawtransmenu" class="withdrawtransmenu" onclick="withdrawtrans()">Withdraw transactions</a></li>
+	  <li><a id="deposittransmenu" class="deposittransmenu" onclick="deposittrans()">Deposit Transactions</a></li>
+	  <li><a id="sendtozidtransmenu" class="sendtozidtransmenu" onclick="sendtrans()">Send to Zid Transactions</a></li>
+	  <li><a id="changepasswordmenu" class="changepasswordmenu">Change Password</a></li>
+	  <li><a id="allagentmenu" class="allagentmenu" onclick="alluser()">Agent</a></li>
+	  
+	  <li><a onclick="window.location.href='index.html'">Logout</a></li>
+	</ul>
+	
+<div id="allagentcontainer" style="margin-left:16%;">
+	<ul class="ul2">
+	  <li><a id="allusersmenu" class="allusersmenu" onclick="alluser()">All Users</a></li>
+	   <li><a id="giveaccessmenu" class="giveaccessmenu" onclick="giveaccess()">Give Access</a></li>
+	  <li><a id="agentpasswordresetmenu" class="agentpasswordresetmenu">User Password Reset</a></li>
+	  <li><a id="agenttoseezidmenu" class="agenttoseezidmenu">Transaction of particular user</a></li>
+</ul>
+</div>
+
+	<!-- left side container--> 
+	
+	<div style="margin-left:17%;padding:1px 16px;height:100px;">
+	
+	
+	<!-- Error message display container -->
+	
+	<div id="errorcontainer" class="errorcontainer">
+	
+		<p id="transactionerror" style="display:inline;font-family:Times New Roman;font-size:30px;text-align:left;color:red;"></p>
+		<p id="transactionsuccess" style="text-align:center;display:inline;font-family:Times New Roman;font-size:30px;color:green;"></p>
+		
+	</div>
+	
+	<!-- Agent to change password of the particular user -->
+	
+	<div id="agentpasswordresetcontainer" class="agentchangepassword">
+	
+		<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Reseting Password for users</p>
+	
+			<form id="agentresetpassword" name="agentresetpassword">
+		
+				<div class="forminputs">
+	
+						 <input autocomplete="off" name="zidofuser" type="number" id="zidofuser" class="form__input" placeholder=" ">
+	
+						  <label style="font-family:Times New Roman;" id="zidofuserlabel" for="zidofuser" class="form__label">Enter the zid</label>
+				</div>
+	
+				<div class="error">
+					
+					<p id="zidofusererror"></p>
+				
+				</div>
+				<div class="forminputs">
+	
+						 <input autocomplete="off" type="password" name="usernewpassword" id="usernewpassword" class="form__input" placeholder=" ">
+	
+						  <label style="font-family:Times New Roman;" id="usernewpasswordlabel" for="usernewpassword" class="form__label">New Password</label>
+				</div>
+	
+				<div class="error">
+					
+					<p id="usernewpassworderror"></p>
+				
+				</div>
+	
+				
+				<input type="checkbox" autocomplete="off" id="agentshowPassword" >
+	
+				<label style="font-family:Times New Roman;"  for="agentshowPassword">Show password</label>
+	
+	
+				<input type="button" id="agentpasswordnext" class="confirm" value="Confirm" onclick="passwordchangetouser()">
+			
+			</form>
+	</div>
+	
+	
+	<!-- agent resting password to users Page -->
+	
+	<script>
+
+
+	function passwordchangetouser()
+	{
+		
+		var usernewpassword = $('#usernewpassword').val();
+		var zidofuser = $('#zidofuser').val();
+		
+		if(zidofuser <=0)
+		{
+			 document.getElementById("zidofuser").classList.remove("form__input");
+				document.getElementById("zidofuser").classList.add("forminputerror");
+			document.getElementById("zidofuserlabel").classList.remove("form__label");
+				document.getElementById("zidofuserlabel").classList.add("formlabelerror");
+			document.getElementById('zidofusererror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a zid";	
+		}
+		else
+		{
+			document.getElementById("zidofuser").classList.remove("forminputerror");
+			document.getElementById("zidofuser").classList.add("form__input");
+		document.getElementById("zidofuserlabel").classList.remove("formlabelerror");
+			document.getElementById("zidofuserlabel").classList.add("form__label");
+		document.getElementById('zidofusererror').innerHTML="";
+		}
+		if(usernewpassword == "")
+		{
+			 document.getElementById("usernewpassword").classList.remove("form__input");
+				document.getElementById("usernewpassword").classList.add("forminputerror");
+			document.getElementById("usernewpasswordlabel").classList.remove("form__label");
+				document.getElementById("usernewpasswordlabel").classList.add("formlabelerror");
+			document.getElementById('usernewpassworderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter a password";	
+		}
+		else if(usernewpassword!="")
+		{
+			document.getElementById("usernewpassword").classList.remove("forminputerror");
+				document.getElementById("usernewpassword").classList.add("form__input");
+			document.getElementById("usernewpasswordlabel").classList.remove("formlabelerror");
+				document.getElementById("usernewpasswordlabel").classList.add("form__label");
+			document.getElementById('usernewpassworderror').innerHTML="";
+		}
+		if(zidofuser>=0 && usernewpassword!="")
+		{	
+
+			$.ajax({
+			url      : 'AgentResetPassword',
+			method   : 'POST',
+			data     : {usernewpassword : usernewpassword,
+				zidofuser:zidofuser},
+			success  : function(resultText)
+			{
+				const obj = JSON.parse(resultText);
+				console.log(obj.status);
+				if(obj.status=="success")
+				{
+					window.location.replace('ConfirmAgentPassword.html');
+				}
+			},
+			error : function(jqXHR, exception)
+			{
+				console.log('Error occured!!');
+			}
+			});
+		}
+		
+	}
+
+	</script>
+	
+	<script>
+	
+	document.getElementById('agentshowPassword').onclick = function() 
+	{
+		if ( this.checked ) 
+		{
+			
+		document.getElementById('usernewpassword').type = "text";
+		
+		}
+		else
+		{
+		   
+		   document.getElementById('usernewpassword').type = "password";
+		 
+		}
+	};
+	</script>
+	
+
+	
+	<!-- profile page container --> 
+	
+		<div id="profilecontainer" class="profile">
+	
+				<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+				<div style="margin-top:50px;margin-bottom:30px">
+				
+				<p style="display:inline;font-family:Times New Roman;font-size:30px;text-align:left;color:black;">Hi ,</p>
+				
+				<p id="username" style="display:inline;font-family:Times New Roman;font-size:30px;"></p>
+				
+				</div>
+				
+				<hr>
+	
+				<div style="margin-top:30px;margin-bottom:30px">
+				
+				<p style="display:inline;font-family:Times New Roman;font-size:30px;text-align:left;color:black;">Email:</p>
+				
+				<p id="email" style="display:inline;font-family:Times New Roman;font-size:30px;"></p>
+				
+				</div>
+				
+				<hr>
+	
+				<div style="margin-top:30px;margin-bottom:30px">
+				
+				<p style="display:inline;font-family:Times New Roman;font-size:30px;text-align:left;color:black;">Phone number:</p>
+				
+				<p id="phone" style="display:inline;font-family:Times New Roman;font-size:30px;"></p>
+				
+				</div>
+				
+				<hr>
+				
+				<div style="margin-top:30px;margin-bottom:30px">
+				
+				<p style="display:inline;font-family:Times New Roman;font-size:30px;text-align:left;color:black;">HID:</p>
+				
+				<p id="hid" style="display:inline;font-family:Times New Roman;font-size:30px;"></p>
+				
+				</div>	
+				
+				<hr>
+	
+				<div style="margin-top:30px;margin-bottom:30px">
+				
+				<p style="display:inline;font-family:Times New Roman;font-size:30px;text-align:left;color:black;">RC:</p>
+				
+				<p id="rc" style="display:inline;font-family:Times New Roman;font-size:30px;"></p>
+				
+				</div>
+	
+				<hr>
+	
+				<div style="margin-top:30px;margin-bottom:30px">
+				
+				<p style="display:inline;font-family:Times New Roman;font-size:30px;text-align:left;color:black;">Z-ID:</p>
+				
+				<p id="zid" style="display:inline;font-family:Times New Roman;font-size:30px;"></p>
+				
+				</div>
+		
+				<hr>
+		</div>
+	
+
+	
+	
+	<!-- change password container --> 
+	
+	
+		<div id="changepasswordcontainer" class="changepassword">
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Reset Password</p>
+	
+			<form id="resetpassword" name="resetpassword">
+		
+				<div class="forminputs">
+	
+						 <input autocomplete="off" name="currentpassword" type="password" id="currentpassword" class="form__input" placeholder=" ">
+	
+						  <label style="font-family:Times New Roman;" id="currentpasswordlabel" for="currentpassword" class="form__label">Current Password</label>
+				</div>
+	
+				<div class="error">
+					
+					<p id="currentpassworderror"></p>
+				
+				</div>
+	
+				<div class="forminputs">
+	
+						 <input autocomplete="off" type="password" name="newpassword" id="newpassword" class="form__input" placeholder=" ">
+	
+						  <label style="font-family:Times New Roman;" id="newpasswordlabel" for="newpassword" class="form__label">New Password</label>
+				</div>
+	
+				<div class="error">
+					
+					<p id="newpassworderror"></p>
+				
+				</div>
+	
+				<div class="forminputs">
+					 
+						<input autocomplete="off" type="password" id="repeatpassword" name="repeatpassword" class="form__input" placeholder=" ">
+	
+						  <label style="font-family:Times New Roman;" id="repeatpasswordlabel" for="repeatpassword" class="form__label">Repeat new password</label>
+				</div>
+	
+				<div class="error">
+					
+					<p id="repeatnewpassworderror"></p>
+				
+				</div>
+	
+				<input type="checkbox" autocomplete="off" id="showPassword" >
+	
+				<label style="font-family:Times New Roman;"  for="showPassword">Show password</label>
+	
+	
+				<input type="button" id="passwordnext" class="confirm" value="Confirm" onclick="resetpasswords()">
+			
+			</form>
+	
+			
+	
+		</div>
+	
+	
+	
+	<!-- withdraw container --> 
+	
+	
+	
+		<div id="withdrawcontainer" class="withdraw">
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Withdraw</p>
+	
+			<form id="towithdraw" name="towithdraw">
+	
+				 <div class="forminputs" style="margin-top:40px;">
+	
+					<input autocomplete="off" type="number" name="withdraw" id="withdraw" class="form__input" placeholder=" ">
+			
+					  <label style="font-family:Times New Roman;" name="withdrawlabel" id="withdrawlabel" for="" class="form__label">Enter the amount</label>
+	
+				</div>
+	
+				<div class="error">
+					
+					<p id="withdrawerror"></p>
+				
+				</div>
+			
+			
+			<input type="button" id="next" class="withdrawbutton" value="withdraw" onclick="withdrawamount()">
+			</form>
+			
+			
+	
+		</div>
+	
+	<!-- deposit container -->
+	
+	
+		<div id="depositcontainer" class="deposit" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Deposit</p>
+	
+			<form id="todeposit" name="todeposit">
+	
+				 <div class="forminputs" style="margin-top:40px;">
+	
+					<input autocomplete="off" type="number" name="deposit" id="deposit" class="form__input" placeholder=" ">
+			
+					  <label style="font-family:Times New Roman;" name="depositlabel" id="depositlabel" for="" class="form__label">Enter the amount</label>
+	
+				</div>
+	
+				<div class="error">
+					
+					<p id="depositerror"></p>
+				
+				</div>
+			
+			
+			<input type="button" id="depositnext" class="depositbutton" value="Deposit" onclick="depositamount()">
+			
+			</form>
+	
+		   </div>
+	
+
+	
+	<!-- whole transaction container -->
+	
+		<div id="wholetranscontainer" class="wholetrans" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Whole Transactions...</p>
+	
+			<div class="scrollingTable">
+			
+				<table id="wholetable">
+	
+					<tr style="position:sticky;">
+					<th>Transaction</th>
+					<th>Date&Time</th>
+					<th>Transaction amount</th>
+					<th>Balance</th>
+					</tr>
+				</table>
+	
+			</div>
+			
+		</div>
+	
+	
+	<!-- withdraw transaction container -->
+	
+		<div id="withdrawtranscontainer" class="withdrawtrans" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Withdraw transactions...</p>
+	
+			<div class="scrollingTable" >
+			
+				<table id="withdrawtable">	
+					<tr style="position:sticky;">
+					<th>Date&Time</th>
+					<th>Transaction amount</th>
+					<th>Balance</th>
+					</tr>
+				</table>
+	
+			</div>
+				
+		</div>
+	
+	
+	<!-- All users with access container -->
+	
+		<div id="alluserscontainer" class="allusers" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">All Users...</p>
+	
+			<div class="scrollingTable" >
+			
+				<table id="allusertable">
+					<tr style="position:sticky;">
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Z-id</th>
+					<th>H-ID</th>
+					<th>RC</th>
+					</tr>
+				</table>
+	
+			</div>
+				
+		</div>
+		
+		<!-- Agent to see the transaction of particular zid container -->
+	
+		<div id="agenttoseezidcontainer" class="agenttoseezid" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">To see transaction of particular user...</p>
+			
+			<formid="toseezid" name="toseezid">
+	
+				 <div class="forminputs" style="margin-top:40px;">
+	
+					<input autocomplete="off" type="number" name="seezid" id="seezid" class="form__input" placeholder=" ">
+			
+					  <label style="font-family:Times New Roman;" name="seezidlabel" id="seezidlabel" for="" class="form__label">Enter the zid</label>
+	
+				</div>
+	
+				<div class="error">
+					
+					<p id="seeziderror"></p>
+				
+				</div>
+	
+				<input type="button" id="seezidnext" class="seezidbutton" value="Next" onclick="agenttoseeuserstrans()">
+				
+			</form>
+			
+			</div>
+
+
+<script>
+
+function agenttoseeuserstrans()
+{
+var seezid = $('#seezid').val();
+
+
+if(seezid<=0)
+{
+	document.getElementById("seezid").classList.remove("form__input");
+		document.getElementById("seezid").classList.add("forminputerror");
+	document.getElementById("seezidlabel").classList.remove("form__label");
+		document.getElementById("seezidlabel").classList.add("formlabelerror");
+	document.getElementById('seeziderror').innerHTML="<img src='images/08-512.png' style='height:20px;width:20px'>"+"Please enter the zid";
+}
+else
+{
+		$.ajax({
+		url      : 'SeeParticlarUserTransaction',
+		method   : 'POST',
+		data     : {seezid : seezid},
+		success  : function(resultText)
+		{
+			console.log(resultText);
+			const obj = JSON.parse(resultText);
+			var count = Object.keys(obj).length;
+			console.log(count);
+			document.getElementById('userinfoofuser').innerHTML="Transaction of Z-Id ="+seezid+"";
+				$("#agenttoseezidcontainer").hide();
+				$("#wholetransofparticularusercontainer").show();
+				var rowCount = $("#wholetransofusertable tr").length;
+				for(let i=1;i<rowCount;i++)
+				{
+					document.getElementById("wholetransofusertable").deleteRow(1);
+				}
+				if(obj[0].status=="success")
+				{
+					for(let i=0;i<count;i++)
+					{
+						var table = document.getElementById('wholetransofusertable');
+		          		var row = table.insertRow(1);
+		           		var dateandtime = row.insertCell(0);
+		          		var transaction=row.insertCell(1);
+		          		var transactionamount=row.insertCell(2);
+		          		var sendzid=row.insertCell(3);
+		          		var balance=row.insertCell(4);
+		          		dateandtime.innerHTML = obj[i].dateandtime;
+		          		transaction.innerHTML=obj[i].transaction;
+		          		transactionamount.innerHTML=obj[i].transactionamount;
+		          		sendzid.innerHTML=obj[i].sendzid;
+		          		balance.innerHTML=obj[i].balance;
+					}
+				}
+				else if(obj[0].status=="NoActionPerformedByZid")
+				{
+					document.getElementById('transactionsuccess').innerHTML="";
+					document.getElementById('transactionerror').innerHTML="Entered Zid is does not performed any transaction";
+     				$(document).ready(function()
+     				{
+     				$("#errorcontainer").fadeIn();
+     				});
+     				setTimeout(function() {
+     				$('#errorcontainer').fadeOut('fast');
+     				}, 2000);					
+				}
+				else
+				{
+					document.getElementById('transactionsuccess').innerHTML="";
+					document.getElementById('transactionerror').innerHTML="Entered Zid is not present";
+     				$(document).ready(function()
+     				{
+     				$("#errorcontainer").fadeIn();
+     				});
+     				setTimeout(function() {
+     				$('#errorcontainer').fadeOut('fast');
+     				}, 2000);	
+				}
+			
+		},
+		error : function(jqXHR, exception)
+		{
+			console.log('Error occured!!');
+		}
+		});
+}}		
+</script>
+	
+	
+	<!-- deposit transaction container -->
+	
+	
+		<div id="deposittranscontainer" class="deposittrans" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Deposit transactions...</p>
+	
+			<div class="scrollingTable">
+			
+				<table id="deposittable">
+					<tr style="position:sticky;">
+					<th>Date&Time</th>
+					<th>Transaction amount</th>
+					<th>Balance</th>
+					</tr>
+				</table>
+	
+			</div>
+			
+			
+		</div>
+	
+	
+	<!-- sendtozid transaction container -->
+	
+		<div id="sendtozidtranscontainer" class="sendtozidtrans" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Send to Z-Ids</p>
+	
+			<div class="scrollingTable">
+			
+				<table id="myTable">
+	
+					<tr style="position:sticky;">
+					<th>Send Z-ID</th>
+					<th>Date&Time</th>
+					<th>Transaction amount</th>
+					<th>Balance</th>
+					</tr>
+					
+				</table>
+	
+			</div>
+		
+		</div>
+	
+	<!-- access container to user by agent-->
+	
+		<div id="giveaccesscontainer" class="giveaccess" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p id="userinfo" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Access needed Users</p>
+	
+			<div class="scrollingTable">
+			
+				<table id="accessTable">
+	
+					<tr style="position:sticky;">
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Zid</th>
+					<th>H-id</th>
+					<th>RC</th>
+					<th>Access</th>
+					</tr>
+					
+				</table>
+	
+			</div>
+		
+		</div>
+	
+
+	<!-- sendtozid container -->
+	
+	
+		<div id="sendtozidcontainer" class="sendtozid" >
+	
+			<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+	
+			<p style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">Send to Z-Id</p>
+	
+	
+				<form id="tozid" name="tozid">
+	
+					 <div class="forminputs">
+	
+						<input autocomplete="off" type="number" name="zidinput" id="zidinput" class="form__input" placeholder=" ">
+				
+						  <label style="font-family:Times New Roman;" name="zidlabel" id="zidlabel" for="" class="form__label">Enter the ZID</label>
+	
+					</div>
+	
+					<div class="error">
+						
+						<p id="sendtoziderror"></p>
+					
+					</div>
+	
+					<div class="forminputs">
+	
+						<input autocomplete="off" type="number" name="sendamount" id="sendamount" class="form__input" placeholder=" ">
+				
+						  <label style="font-family:Times New Roman;" name="sendamountlabel" id="sendamountlabel" for="" class="form__label">Enter the amount</label>
+	
+					</div>
+	
+					<div class="error">
+						
+						<p id="sendtozidamounterror"></p>
+					
+					</div>
+				
+				<input type="button" id="sendtozidnext" class="send" value="Send" onclick="sendtozidamount()">
+				
+				</form>
+	
+	   </div>
+	   
+	   
+	   <!-- whole transaction container -->
+
+
+	<div id="wholetransofparticularusercontainer" class="wholetransofparticularuser" >
+
+		<img class="image_center" src="images/zoho-logo.png" style="wight:100px;height:100px">
+
+		<p id="userinfoofuser" style="margin-top:50px;font-family:Times New Roman;font-size:30px;text-align:left;">gh</p>
+
+		<div class="scrollingTable">
+		
+			<table id="wholetransofusertable">
+
+				<tr style="position:sticky;">
+				
+				<th>Date&Time</th>
+				<th>Transaction</th>
+				<th>Transaction amount</th>
+				<th>Sendzid</th>
+				<th>Balance</th>
+				</tr>
+			</table>
+			
+
+
+
+		</div>
+		<input type="button" id="seezidtransback" class="seezidback" value=Back onclick="seezidtransMessage()">
+	</div>
+
+	</div>
+	
+	<script>
+	
+	function seezidtransMessage()
+	{
+		$("#agenttoseezidcontainer").show();
+		$("#wholetransofparticularusercontainer").hide();
+	}
+	
+	</script>
+	
+	
+	
+
+	
+	
+	<!-- reset password design -->
+	
+	
+	<script>
+	
+	document.getElementById('showPassword').onclick = function() 
+	{
+		if ( this.checked ) 
+		{
+			document.getElementById('currentpassword').type = "text";
+		document.getElementById('newpassword').type = "text";
+		document.getElementById('repeatpassword').type = "text";
+		}
+		else
+		{
+		   document.getElementById('currentpassword').type = "password"; 
+		   document.getElementById('newpassword').type = "password";
+		   document.getElementById('repeatpassword').type = "password";
+		}
+	};
+	
+</script>
+	
+
+	<!-- AJAX -->
+	
+	<script>
+	
+	$("#profilecontainer").fadeIn();
+	$(".profilemenu").addClass("active");
+	$("#withdrawcontainer").hide();
+	$("#depositcontainer").hide();
+	$("#sendtozidcontainer").hide();
+	$("#wholetranscontainer").hide();
+	$("#withdrawtranscontainer").hide();
+	$("#deposittranscontainer").hide();
+	$("#sendtozidtranscontainer").hide();
+	$("#changepasswordcontainer").hide();
+	$("#allagentcontainer").hide();
+	$("#alluserscontainer").hide();
+	$("#giveaccesscontainer").hide();
+	$("#agentpasswordresetcontainer").hide();
+	$("#agenttoseezidcontainer").hide();
+	$("#wholetransofparticularusercontainer").hide();
+	$("#errorcontainer").hide();
+	
+	function profilefunction()
+	{
+		$("#profilecontainer").fadeIn();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").addClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function withdrawfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").fadeIn();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").addClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function depositfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").fadeIn();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").addClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function sendtozidfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").fadeIn();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").addClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function wholetransfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").fadeIn();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").addClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function withdrawtransfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").fadeIn();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").addClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function deposittransfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").fadeIn();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").addClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function sendtozidtransfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").fadeIn();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").addClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function changepasswordfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").fadeIn();
+		$("#allagentcontainer").hide();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").addClass("active");
+		$(".allagentmenu").removeClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function allagentfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").show();
+		$("#alluserscontainer").fadeIn();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").addClass("active");
+		$(".allusersmenu").addClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function allusersfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").show();
+		$("#alluserscontainer").fadeIn();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").addClass("active");
+		$(".allusersmenu").addClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function giveaccessfunction()
+	{
+		
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").show();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").fadeIn();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").addClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").addClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function agentpasswordresetfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").show();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").fadeIn();
+		$("#agenttoseezidcontainer").hide();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").addClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").addClass("active");
+		$(".agenttoseezidmenu").removeClass("active");
+	}
+	function agenttoseezidfunction()
+	{
+		$("#profilecontainer").hide();
+		$("#withdrawcontainer").hide();
+		$("#depositcontainer").hide();
+		$("#sendtozidcontainer").hide();
+		$("#wholetranscontainer").hide();
+		$("#withdrawtranscontainer").hide();
+		$("#deposittranscontainer").hide();
+		$("#sendtozidtranscontainer").hide();
+		$("#changepasswordcontainer").hide();
+		$("#allagentcontainer").show();
+		$("#alluserscontainer").hide();
+		$("#giveaccesscontainer").hide();
+		$("#agentpasswordresetcontainer").hide();
+		$("#agenttoseezidcontainer").fadeIn();
+		$("#errorcontainer").hide();
+		$("#wholetransofparticularusercontainer").hide();
+
+		$(".profilemenu").removeClass("active");
+		$(".withdrawmenu").removeClass("active");
+		$(".depositmenu").removeClass("active");
+		$(".sendtozidmenu").removeClass("active");
+		$(".wholetransmenu").removeClass("active");
+		$(".withdrawtransmenu").removeClass("active");
+		$(".deposittransmenu").removeClass("active");
+		$(".sendtozidtransmenu").removeClass("active");
+		$(".changepasswordmenu").removeClass("active");
+		$(".allagentmenu").addClass("active");
+		$(".allusersmenu").removeClass("active");
+		$(".giveaccessmenu").removeClass("active");
+		$(".agentpasswordresetmenu").removeClass("active");
+		$(".agenttoseezidmenu").addClass("active");
+	}
+
+	
+	$(document).ready(function()
+	{
+		$(".profilemenu").click(function()
+		{
+			profilefunction();
+			
+		});		
+		
+		$(".withdrawmenu").click(function()
+		{
+			withdrawfunction();
+			
+		});	
+		$(".depositmenu").click(function()
+		{
+			depositfunction();
+			
+		});	
+		$(".sendtozidmenu").click(function()
+		{
+			
+			sendtozidfunction();
+		});	
+		$(".wholetransmenu").click(function()
+		{
+			wholetransfunction();
+			
+		});	
+		$(".withdrawtransmenu").click(function()
+		{
+		
+			withdrawtransfunction();
+		});	
+		$(".deposittransmenu").click(function()
+		{
+		
+			deposittransfunction();
+		});	
+		$(".sendtozidtransmenu").click(function()
+		{
+		sendtozidtransfunction();
+			
+		});	
+		$(".changepasswordmenu").click(function()
+		{
+		changepasswordfunction();
+			
+		});	
+		$(".allagentmenu").click(function()
+		{
+		
+			allagentfunction();
+
+
+		});	
+		$(".giveaccessmenu").click(function()
+		{
+		giveaccessfunction();
+		});
+
+		$(".allusersmenu").click(function()
+		{
+			
+		allusersfunction();
+		});
+
+		$(".agentpasswordresetmenu").click(function()
+		{
+			agentpasswordresetfunction();
+		
+		});
+
+		$(".agenttoseezidmenu").click(function()
+		{
+			agenttoseezidfunction();
+	
+		});
+
+	});
+	
+	
+	</script>
+	
+	</body>
+	
+	</html>
