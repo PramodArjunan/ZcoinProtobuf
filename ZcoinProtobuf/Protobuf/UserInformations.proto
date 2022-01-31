@@ -5,20 +5,20 @@ option java_outer_classname = "UserInformations";
 
 message UserDetails
 {
-	optional int32 Rc=1;
-	optional int32 Zid=2;
+	required int32 Rc=1;
+	required int32 Zid=2;
 	optional int32 Depost=3;
 	optional int32 Withdraw=4;
 	optional int32 SendZid=5;
 	optional int32 ZidAmount=6;
-	optional int32 Type=7;
+	required int32 Type=7;
 	optional int32 AgentUserZid=8;
-	optional bool Access=9;
-	optional int64 Phone=10;
-	optional string Name=11;
-	optional string Email=12;
-	optional string Hid=13;
-	optional string Password=14;
+	required bool Access=9;
+	required int64 Phone=10;
+	required string Name=11;
+	required string Email=12;
+	required string Hid=13;
+	required string Password=14;
 	optional string AgentUserNewPassword=15;
 	optional string ResetPassword=16;
 	optional string Message=17;

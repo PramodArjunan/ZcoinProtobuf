@@ -19,23 +19,23 @@ public final class UserInformations {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional int32 Rc = 1;</code>
+     * <code>required int32 Rc = 1;</code>
      * @return Whether the rc field is set.
      */
     boolean hasRc();
     /**
-     * <code>optional int32 Rc = 1;</code>
+     * <code>required int32 Rc = 1;</code>
      * @return The rc.
      */
     int getRc();
 
     /**
-     * <code>optional int32 Zid = 2;</code>
+     * <code>required int32 Zid = 2;</code>
      * @return Whether the zid field is set.
      */
     boolean hasZid();
     /**
-     * <code>optional int32 Zid = 2;</code>
+     * <code>required int32 Zid = 2;</code>
      * @return The zid.
      */
     int getZid();
@@ -85,12 +85,12 @@ public final class UserInformations {
     int getZidAmount();
 
     /**
-     * <code>optional int32 Type = 7;</code>
+     * <code>required int32 Type = 7;</code>
      * @return Whether the type field is set.
      */
     boolean hasType();
     /**
-     * <code>optional int32 Type = 7;</code>
+     * <code>required int32 Type = 7;</code>
      * @return The type.
      */
     int getType();
@@ -107,90 +107,90 @@ public final class UserInformations {
     int getAgentUserZid();
 
     /**
-     * <code>optional bool Access = 9;</code>
+     * <code>required bool Access = 9;</code>
      * @return Whether the access field is set.
      */
     boolean hasAccess();
     /**
-     * <code>optional bool Access = 9;</code>
+     * <code>required bool Access = 9;</code>
      * @return The access.
      */
     boolean getAccess();
 
     /**
-     * <code>optional int64 Phone = 10;</code>
+     * <code>required int64 Phone = 10;</code>
      * @return Whether the phone field is set.
      */
     boolean hasPhone();
     /**
-     * <code>optional int64 Phone = 10;</code>
+     * <code>required int64 Phone = 10;</code>
      * @return The phone.
      */
     long getPhone();
 
     /**
-     * <code>optional string Name = 11;</code>
+     * <code>required string Name = 11;</code>
      * @return Whether the name field is set.
      */
     boolean hasName();
     /**
-     * <code>optional string Name = 11;</code>
+     * <code>required string Name = 11;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
-     * <code>optional string Name = 11;</code>
+     * <code>required string Name = 11;</code>
      * @return The bytes for name.
      */
     com.google.protobuf.ByteString
         getNameBytes();
 
     /**
-     * <code>optional string Email = 12;</code>
+     * <code>required string Email = 12;</code>
      * @return Whether the email field is set.
      */
     boolean hasEmail();
     /**
-     * <code>optional string Email = 12;</code>
+     * <code>required string Email = 12;</code>
      * @return The email.
      */
     java.lang.String getEmail();
     /**
-     * <code>optional string Email = 12;</code>
+     * <code>required string Email = 12;</code>
      * @return The bytes for email.
      */
     com.google.protobuf.ByteString
         getEmailBytes();
 
     /**
-     * <code>optional string Hid = 13;</code>
+     * <code>required string Hid = 13;</code>
      * @return Whether the hid field is set.
      */
     boolean hasHid();
     /**
-     * <code>optional string Hid = 13;</code>
+     * <code>required string Hid = 13;</code>
      * @return The hid.
      */
     java.lang.String getHid();
     /**
-     * <code>optional string Hid = 13;</code>
+     * <code>required string Hid = 13;</code>
      * @return The bytes for hid.
      */
     com.google.protobuf.ByteString
         getHidBytes();
 
     /**
-     * <code>optional string Password = 14;</code>
+     * <code>required string Password = 14;</code>
      * @return Whether the password field is set.
      */
     boolean hasPassword();
     /**
-     * <code>optional string Password = 14;</code>
+     * <code>required string Password = 14;</code>
      * @return The password.
      */
     java.lang.String getPassword();
     /**
-     * <code>optional string Password = 14;</code>
+     * <code>required string Password = 14;</code>
      * @return The bytes for password.
      */
     com.google.protobuf.ByteString
@@ -452,7 +452,7 @@ public final class UserInformations {
     public static final int RC_FIELD_NUMBER = 1;
     private int rc_;
     /**
-     * <code>optional int32 Rc = 1;</code>
+     * <code>required int32 Rc = 1;</code>
      * @return Whether the rc field is set.
      */
     @java.lang.Override
@@ -460,7 +460,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>optional int32 Rc = 1;</code>
+     * <code>required int32 Rc = 1;</code>
      * @return The rc.
      */
     @java.lang.Override
@@ -471,7 +471,7 @@ public final class UserInformations {
     public static final int ZID_FIELD_NUMBER = 2;
     private int zid_;
     /**
-     * <code>optional int32 Zid = 2;</code>
+     * <code>required int32 Zid = 2;</code>
      * @return Whether the zid field is set.
      */
     @java.lang.Override
@@ -479,7 +479,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>optional int32 Zid = 2;</code>
+     * <code>required int32 Zid = 2;</code>
      * @return The zid.
      */
     @java.lang.Override
@@ -566,7 +566,7 @@ public final class UserInformations {
     public static final int TYPE_FIELD_NUMBER = 7;
     private int type_;
     /**
-     * <code>optional int32 Type = 7;</code>
+     * <code>required int32 Type = 7;</code>
      * @return Whether the type field is set.
      */
     @java.lang.Override
@@ -574,7 +574,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00000040) != 0);
     }
     /**
-     * <code>optional int32 Type = 7;</code>
+     * <code>required int32 Type = 7;</code>
      * @return The type.
      */
     @java.lang.Override
@@ -604,7 +604,7 @@ public final class UserInformations {
     public static final int ACCESS_FIELD_NUMBER = 9;
     private boolean access_;
     /**
-     * <code>optional bool Access = 9;</code>
+     * <code>required bool Access = 9;</code>
      * @return Whether the access field is set.
      */
     @java.lang.Override
@@ -612,7 +612,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00000100) != 0);
     }
     /**
-     * <code>optional bool Access = 9;</code>
+     * <code>required bool Access = 9;</code>
      * @return The access.
      */
     @java.lang.Override
@@ -623,7 +623,7 @@ public final class UserInformations {
     public static final int PHONE_FIELD_NUMBER = 10;
     private long phone_;
     /**
-     * <code>optional int64 Phone = 10;</code>
+     * <code>required int64 Phone = 10;</code>
      * @return Whether the phone field is set.
      */
     @java.lang.Override
@@ -631,7 +631,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00000200) != 0);
     }
     /**
-     * <code>optional int64 Phone = 10;</code>
+     * <code>required int64 Phone = 10;</code>
      * @return The phone.
      */
     @java.lang.Override
@@ -642,7 +642,7 @@ public final class UserInformations {
     public static final int NAME_FIELD_NUMBER = 11;
     private volatile java.lang.Object name_;
     /**
-     * <code>optional string Name = 11;</code>
+     * <code>required string Name = 11;</code>
      * @return Whether the name field is set.
      */
     @java.lang.Override
@@ -650,7 +650,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00000400) != 0);
     }
     /**
-     * <code>optional string Name = 11;</code>
+     * <code>required string Name = 11;</code>
      * @return The name.
      */
     @java.lang.Override
@@ -669,7 +669,7 @@ public final class UserInformations {
       }
     }
     /**
-     * <code>optional string Name = 11;</code>
+     * <code>required string Name = 11;</code>
      * @return The bytes for name.
      */
     @java.lang.Override
@@ -690,7 +690,7 @@ public final class UserInformations {
     public static final int EMAIL_FIELD_NUMBER = 12;
     private volatile java.lang.Object email_;
     /**
-     * <code>optional string Email = 12;</code>
+     * <code>required string Email = 12;</code>
      * @return Whether the email field is set.
      */
     @java.lang.Override
@@ -698,7 +698,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00000800) != 0);
     }
     /**
-     * <code>optional string Email = 12;</code>
+     * <code>required string Email = 12;</code>
      * @return The email.
      */
     @java.lang.Override
@@ -717,7 +717,7 @@ public final class UserInformations {
       }
     }
     /**
-     * <code>optional string Email = 12;</code>
+     * <code>required string Email = 12;</code>
      * @return The bytes for email.
      */
     @java.lang.Override
@@ -738,7 +738,7 @@ public final class UserInformations {
     public static final int HID_FIELD_NUMBER = 13;
     private volatile java.lang.Object hid_;
     /**
-     * <code>optional string Hid = 13;</code>
+     * <code>required string Hid = 13;</code>
      * @return Whether the hid field is set.
      */
     @java.lang.Override
@@ -746,7 +746,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00001000) != 0);
     }
     /**
-     * <code>optional string Hid = 13;</code>
+     * <code>required string Hid = 13;</code>
      * @return The hid.
      */
     @java.lang.Override
@@ -765,7 +765,7 @@ public final class UserInformations {
       }
     }
     /**
-     * <code>optional string Hid = 13;</code>
+     * <code>required string Hid = 13;</code>
      * @return The bytes for hid.
      */
     @java.lang.Override
@@ -786,7 +786,7 @@ public final class UserInformations {
     public static final int PASSWORD_FIELD_NUMBER = 14;
     private volatile java.lang.Object password_;
     /**
-     * <code>optional string Password = 14;</code>
+     * <code>required string Password = 14;</code>
      * @return Whether the password field is set.
      */
     @java.lang.Override
@@ -794,7 +794,7 @@ public final class UserInformations {
       return ((bitField0_ & 0x00002000) != 0);
     }
     /**
-     * <code>optional string Password = 14;</code>
+     * <code>required string Password = 14;</code>
      * @return The password.
      */
     @java.lang.Override
@@ -813,7 +813,7 @@ public final class UserInformations {
       }
     }
     /**
-     * <code>optional string Password = 14;</code>
+     * <code>required string Password = 14;</code>
      * @return The bytes for password.
      */
     @java.lang.Override
@@ -1030,6 +1030,42 @@ public final class UserInformations {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasRc()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasZid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasAccess()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPhone()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasEmail()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasHid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPassword()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1749,6 +1785,33 @@ public final class UserInformations {
 
       @java.lang.Override
       public final boolean isInitialized() {
+        if (!hasRc()) {
+          return false;
+        }
+        if (!hasZid()) {
+          return false;
+        }
+        if (!hasType()) {
+          return false;
+        }
+        if (!hasAccess()) {
+          return false;
+        }
+        if (!hasPhone()) {
+          return false;
+        }
+        if (!hasName()) {
+          return false;
+        }
+        if (!hasEmail()) {
+          return false;
+        }
+        if (!hasHid()) {
+          return false;
+        }
+        if (!hasPassword()) {
+          return false;
+        }
         return true;
       }
 
@@ -1774,7 +1837,7 @@ public final class UserInformations {
 
       private int rc_ ;
       /**
-       * <code>optional int32 Rc = 1;</code>
+       * <code>required int32 Rc = 1;</code>
        * @return Whether the rc field is set.
        */
       @java.lang.Override
@@ -1782,7 +1845,7 @@ public final class UserInformations {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>optional int32 Rc = 1;</code>
+       * <code>required int32 Rc = 1;</code>
        * @return The rc.
        */
       @java.lang.Override
@@ -1790,7 +1853,7 @@ public final class UserInformations {
         return rc_;
       }
       /**
-       * <code>optional int32 Rc = 1;</code>
+       * <code>required int32 Rc = 1;</code>
        * @param value The rc to set.
        * @return This builder for chaining.
        */
@@ -1801,7 +1864,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional int32 Rc = 1;</code>
+       * <code>required int32 Rc = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearRc() {
@@ -1813,7 +1876,7 @@ public final class UserInformations {
 
       private int zid_ ;
       /**
-       * <code>optional int32 Zid = 2;</code>
+       * <code>required int32 Zid = 2;</code>
        * @return Whether the zid field is set.
        */
       @java.lang.Override
@@ -1821,7 +1884,7 @@ public final class UserInformations {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>optional int32 Zid = 2;</code>
+       * <code>required int32 Zid = 2;</code>
        * @return The zid.
        */
       @java.lang.Override
@@ -1829,7 +1892,7 @@ public final class UserInformations {
         return zid_;
       }
       /**
-       * <code>optional int32 Zid = 2;</code>
+       * <code>required int32 Zid = 2;</code>
        * @param value The zid to set.
        * @return This builder for chaining.
        */
@@ -1840,7 +1903,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional int32 Zid = 2;</code>
+       * <code>required int32 Zid = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearZid() {
@@ -2008,7 +2071,7 @@ public final class UserInformations {
 
       private int type_ ;
       /**
-       * <code>optional int32 Type = 7;</code>
+       * <code>required int32 Type = 7;</code>
        * @return Whether the type field is set.
        */
       @java.lang.Override
@@ -2016,7 +2079,7 @@ public final class UserInformations {
         return ((bitField0_ & 0x00000040) != 0);
       }
       /**
-       * <code>optional int32 Type = 7;</code>
+       * <code>required int32 Type = 7;</code>
        * @return The type.
        */
       @java.lang.Override
@@ -2024,7 +2087,7 @@ public final class UserInformations {
         return type_;
       }
       /**
-       * <code>optional int32 Type = 7;</code>
+       * <code>required int32 Type = 7;</code>
        * @param value The type to set.
        * @return This builder for chaining.
        */
@@ -2035,7 +2098,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional int32 Type = 7;</code>
+       * <code>required int32 Type = 7;</code>
        * @return This builder for chaining.
        */
       public Builder clearType() {
@@ -2086,7 +2149,7 @@ public final class UserInformations {
 
       private boolean access_ ;
       /**
-       * <code>optional bool Access = 9;</code>
+       * <code>required bool Access = 9;</code>
        * @return Whether the access field is set.
        */
       @java.lang.Override
@@ -2094,7 +2157,7 @@ public final class UserInformations {
         return ((bitField0_ & 0x00000100) != 0);
       }
       /**
-       * <code>optional bool Access = 9;</code>
+       * <code>required bool Access = 9;</code>
        * @return The access.
        */
       @java.lang.Override
@@ -2102,7 +2165,7 @@ public final class UserInformations {
         return access_;
       }
       /**
-       * <code>optional bool Access = 9;</code>
+       * <code>required bool Access = 9;</code>
        * @param value The access to set.
        * @return This builder for chaining.
        */
@@ -2113,7 +2176,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional bool Access = 9;</code>
+       * <code>required bool Access = 9;</code>
        * @return This builder for chaining.
        */
       public Builder clearAccess() {
@@ -2125,7 +2188,7 @@ public final class UserInformations {
 
       private long phone_ ;
       /**
-       * <code>optional int64 Phone = 10;</code>
+       * <code>required int64 Phone = 10;</code>
        * @return Whether the phone field is set.
        */
       @java.lang.Override
@@ -2133,7 +2196,7 @@ public final class UserInformations {
         return ((bitField0_ & 0x00000200) != 0);
       }
       /**
-       * <code>optional int64 Phone = 10;</code>
+       * <code>required int64 Phone = 10;</code>
        * @return The phone.
        */
       @java.lang.Override
@@ -2141,7 +2204,7 @@ public final class UserInformations {
         return phone_;
       }
       /**
-       * <code>optional int64 Phone = 10;</code>
+       * <code>required int64 Phone = 10;</code>
        * @param value The phone to set.
        * @return This builder for chaining.
        */
@@ -2152,7 +2215,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional int64 Phone = 10;</code>
+       * <code>required int64 Phone = 10;</code>
        * @return This builder for chaining.
        */
       public Builder clearPhone() {
@@ -2164,14 +2227,14 @@ public final class UserInformations {
 
       private java.lang.Object name_ = "";
       /**
-       * <code>optional string Name = 11;</code>
+       * <code>required string Name = 11;</code>
        * @return Whether the name field is set.
        */
       public boolean hasName() {
         return ((bitField0_ & 0x00000400) != 0);
       }
       /**
-       * <code>optional string Name = 11;</code>
+       * <code>required string Name = 11;</code>
        * @return The name.
        */
       public java.lang.String getName() {
@@ -2189,7 +2252,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Name = 11;</code>
+       * <code>required string Name = 11;</code>
        * @return The bytes for name.
        */
       public com.google.protobuf.ByteString
@@ -2206,7 +2269,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Name = 11;</code>
+       * <code>required string Name = 11;</code>
        * @param value The name to set.
        * @return This builder for chaining.
        */
@@ -2221,7 +2284,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Name = 11;</code>
+       * <code>required string Name = 11;</code>
        * @return This builder for chaining.
        */
       public Builder clearName() {
@@ -2231,7 +2294,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Name = 11;</code>
+       * <code>required string Name = 11;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
        */
@@ -2248,14 +2311,14 @@ public final class UserInformations {
 
       private java.lang.Object email_ = "";
       /**
-       * <code>optional string Email = 12;</code>
+       * <code>required string Email = 12;</code>
        * @return Whether the email field is set.
        */
       public boolean hasEmail() {
         return ((bitField0_ & 0x00000800) != 0);
       }
       /**
-       * <code>optional string Email = 12;</code>
+       * <code>required string Email = 12;</code>
        * @return The email.
        */
       public java.lang.String getEmail() {
@@ -2273,7 +2336,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Email = 12;</code>
+       * <code>required string Email = 12;</code>
        * @return The bytes for email.
        */
       public com.google.protobuf.ByteString
@@ -2290,7 +2353,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Email = 12;</code>
+       * <code>required string Email = 12;</code>
        * @param value The email to set.
        * @return This builder for chaining.
        */
@@ -2305,7 +2368,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Email = 12;</code>
+       * <code>required string Email = 12;</code>
        * @return This builder for chaining.
        */
       public Builder clearEmail() {
@@ -2315,7 +2378,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Email = 12;</code>
+       * <code>required string Email = 12;</code>
        * @param value The bytes for email to set.
        * @return This builder for chaining.
        */
@@ -2332,14 +2395,14 @@ public final class UserInformations {
 
       private java.lang.Object hid_ = "";
       /**
-       * <code>optional string Hid = 13;</code>
+       * <code>required string Hid = 13;</code>
        * @return Whether the hid field is set.
        */
       public boolean hasHid() {
         return ((bitField0_ & 0x00001000) != 0);
       }
       /**
-       * <code>optional string Hid = 13;</code>
+       * <code>required string Hid = 13;</code>
        * @return The hid.
        */
       public java.lang.String getHid() {
@@ -2357,7 +2420,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Hid = 13;</code>
+       * <code>required string Hid = 13;</code>
        * @return The bytes for hid.
        */
       public com.google.protobuf.ByteString
@@ -2374,7 +2437,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Hid = 13;</code>
+       * <code>required string Hid = 13;</code>
        * @param value The hid to set.
        * @return This builder for chaining.
        */
@@ -2389,7 +2452,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Hid = 13;</code>
+       * <code>required string Hid = 13;</code>
        * @return This builder for chaining.
        */
       public Builder clearHid() {
@@ -2399,7 +2462,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Hid = 13;</code>
+       * <code>required string Hid = 13;</code>
        * @param value The bytes for hid to set.
        * @return This builder for chaining.
        */
@@ -2416,14 +2479,14 @@ public final class UserInformations {
 
       private java.lang.Object password_ = "";
       /**
-       * <code>optional string Password = 14;</code>
+       * <code>required string Password = 14;</code>
        * @return Whether the password field is set.
        */
       public boolean hasPassword() {
         return ((bitField0_ & 0x00002000) != 0);
       }
       /**
-       * <code>optional string Password = 14;</code>
+       * <code>required string Password = 14;</code>
        * @return The password.
        */
       public java.lang.String getPassword() {
@@ -2441,7 +2504,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Password = 14;</code>
+       * <code>required string Password = 14;</code>
        * @return The bytes for password.
        */
       public com.google.protobuf.ByteString
@@ -2458,7 +2521,7 @@ public final class UserInformations {
         }
       }
       /**
-       * <code>optional string Password = 14;</code>
+       * <code>required string Password = 14;</code>
        * @param value The password to set.
        * @return This builder for chaining.
        */
@@ -2473,7 +2536,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Password = 14;</code>
+       * <code>required string Password = 14;</code>
        * @return This builder for chaining.
        */
       public Builder clearPassword() {
@@ -2483,7 +2546,7 @@ public final class UserInformations {
         return this;
       }
       /**
-       * <code>optional string Password = 14;</code>
+       * <code>required string Password = 14;</code>
        * @param value The bytes for password to set.
        * @return This builder for chaining.
        */
@@ -2901,13 +2964,13 @@ public final class UserInformations {
   static {
     java.lang.String[] descriptorData = {
       "\n\026UserInformations.proto\022\025TemporaryStora" +
-      "geInJvm\"\310\002\n\013UserDetails\022\n\n\002Rc\030\001 \001(\005\022\013\n\003Z" +
-      "id\030\002 \001(\005\022\016\n\006Depost\030\003 \001(\005\022\020\n\010Withdraw\030\004 \001" +
+      "geInJvm\"\310\002\n\013UserDetails\022\n\n\002Rc\030\001 \002(\005\022\013\n\003Z" +
+      "id\030\002 \002(\005\022\016\n\006Depost\030\003 \001(\005\022\020\n\010Withdraw\030\004 \001" +
       "(\005\022\017\n\007SendZid\030\005 \001(\005\022\021\n\tZidAmount\030\006 \001(\005\022\014" +
-      "\n\004Type\030\007 \001(\005\022\024\n\014AgentUserZid\030\010 \001(\005\022\016\n\006Ac" +
-      "cess\030\t \001(\010\022\r\n\005Phone\030\n \001(\003\022\014\n\004Name\030\013 \001(\t\022" +
-      "\r\n\005Email\030\014 \001(\t\022\013\n\003Hid\030\r \001(\t\022\020\n\010Password\030" +
-      "\016 \001(\t\022\034\n\024AgentUserNewPassword\030\017 \001(\t\022\025\n\rR" +
+      "\n\004Type\030\007 \002(\005\022\024\n\014AgentUserZid\030\010 \001(\005\022\016\n\006Ac" +
+      "cess\030\t \002(\010\022\r\n\005Phone\030\n \002(\003\022\014\n\004Name\030\013 \002(\t\022" +
+      "\r\n\005Email\030\014 \002(\t\022\013\n\003Hid\030\r \002(\t\022\020\n\010Password\030" +
+      "\016 \002(\t\022\034\n\024AgentUserNewPassword\030\017 \001(\t\022\025\n\rR" +
       "esetPassword\030\020 \001(\t\022\017\n\007Message\030\021 \001(\t\022\025\n\rA" +
       "ccessGivenTo\030\022 \001(\tB\022B\020UserInformations"
     };
